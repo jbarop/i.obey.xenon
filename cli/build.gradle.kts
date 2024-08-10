@@ -9,3 +9,7 @@ dependencies {
 application {
   mainClass = "iobeyxenon.cli.AppKt"
 }
+
+tasks.named<JavaExec>("run") {
+  standardInput = System.`in`
+}

@@ -1,3 +1,5 @@
+internal val versionCatalog = extensions.getByType<VersionCatalogsExtension>().named("libs")
+
 plugins {
   id("org.jetbrains.kotlin.jvm")
 }
@@ -15,7 +17,11 @@ dependencies {
 testing {
   suites {
     val test by getting(JvmTestSuite::class) {
-      useJUnitJupiter("5.10.2")
+      useJUnitJupiter(versionCatalog.findVersion("junit").get().requiredVersion)
+    }
+    dependencies {
+      implementation(versionCatalog.findLibrary("hamcrest").get())
+      implementation(versionCatalog.findLibrary("mockito-kotlin").get())
     }
   }
 }

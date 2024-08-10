@@ -1,6 +1,7 @@
 package iobeyxenon.domain
 
-import org.junit.jupiter.api.Assertions.*
+import org.hamcrest.CoreMatchers.`is`
+import org.hamcrest.MatcherAssert.assertThat
 import org.junit.jupiter.api.Test
 import org.mockito.kotlin.any
 import org.mockito.kotlin.mock
@@ -16,14 +17,14 @@ class AnagramTest {
   fun `should return true when anagram is valid`() {
     whenever(checkMock.isAnagram(any(), any())).thenReturn(true)
 
-    assertTrue(cut.isAnagram("", ""))
+    assertThat(cut.isAnagram("", ""), `is`(true))
   }
 
   @Test
   fun `should return false when anagram is not valid`() {
     whenever(checkMock.isAnagram(any(), any())).thenReturn(false)
 
-    assertFalse(cut.isAnagram("", ""))
+    assertThat(cut.isAnagram("", ""), `is`(false))
   }
 
 }

@@ -1,7 +1,10 @@
 [versions]
 kotlin-gradle-plugin = "1.9.23"
+junit = "5.10.3"
+hamcrest = "3.0"
 mockito-kotlin = "5.4.0"
 
 [libraries]
 kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin-gradle-plugin" }
+hamcrest = { module = "org.hamcrest:hamcrest", version.ref = "hamcrest" }
 mockito-kotlin = { module = "org.mockito.kotlin:mockito-kotlin", version.ref = "mockito-kotlin" }

@@ -1,5 +1,7 @@
 [versions]
 kotlin-gradle-plugin = "1.9.23"
+mockito-kotlin = "5.4.0"
 
 [libraries]
 kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin-gradle-plugin" }
+mockito-kotlin = { module = "org.mockito.kotlin:mockito-kotlin", version.ref = "mockito-kotlin" }

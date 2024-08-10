@@ -2,16 +2,13 @@ package iobeyxenon.domain
 
 class Anagram {
 
-  private val check: Check
   private val storage: Storage
 
   constructor() {
-    this.check = CheckImpl()
     this.storage = StorageImpl()
   }
 
-  internal constructor(check: Check, storage: Storage) {
-    this.check = check
+  internal constructor(storage: Storage) {
     this.storage = storage
   }
 
@@ -19,9 +16,13 @@ class Anagram {
    * Returns `true` if [text1] and [text2] form an anagram.
    */
   fun isAnagram(text1: String, text2: String): Boolean {
-    storage.save(text1)
-    storage.save(text2)
-    return check.isAnagram(text1, text2)
+    val text1Representation = AnagramRepresentation(text1)
+    val text2Representation = AnagramRepresentation(text2)
+
+    storage.save(text1Representation, text1)
+    storage.save(text2Representation, text2)
+
+    return text1Representation == text2Representation
   }
 
   /**
@@ -29,9 +30,8 @@ class Anagram {
    */
   fun getRememberedAnagrams(text: String): List<String> {
     return storage
-      .load()
+      .findAnagrams(AnagramRepresentation(text))
       .filter { text != it } // Do not include the requested word
-      .filter { check.isAnagram(text, it) }
   }
 
 }

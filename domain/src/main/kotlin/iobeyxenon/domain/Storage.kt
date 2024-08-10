@@ -2,8 +2,8 @@ package iobeyxenon.domain
 
 internal interface Storage {
 
-  fun save(text: String)
+  fun save(representation: AnagramRepresentation, text: String)
 
-  fun load(): List<String>
+  fun findAnagrams(representation: AnagramRepresentation): List<String>
 
 }

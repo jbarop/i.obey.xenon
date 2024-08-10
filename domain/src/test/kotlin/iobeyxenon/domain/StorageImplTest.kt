@@ -9,32 +9,35 @@ class StorageImplTest {
   private val cut = StorageImpl()
 
   @Test
-  fun `should store and retrieve a text`() {
-    cut.save("a")
+  fun `should return empty list for unkown representations`() {
+    assertThat(cut.findAnagrams(AnagramRepresentation("blah")), equalTo(emptyList()))
+  }
 
-    assertThat(cut.load(), equalTo(listOf("a")))
+  @Test
+  fun `should store multiple anagrams for representations and retain insertion order`() {
+    val representation1 = AnagramRepresentation("a")
+    val representation2 = AnagramRepresentation("b")
+
+    cut.save(representation1, "a")
+    cut.save(representation1, "b")
+    cut.save(representation1, "c")
+    cut.save(representation2, "x")
+    cut.save(representation2, "y")
+    cut.save(representation2, "z")
+
+    assertThat(cut.findAnagrams(representation1), equalTo(listOf("a", "b", "c")))
+    assertThat(cut.findAnagrams(representation2), equalTo(listOf("x", "y", "z")))
   }
 
   @Test
   fun `should ignore duplicates`() {
-    cut.save("a")
-    cut.save("a")
+    val text = "a"
+    val representation = AnagramRepresentation(text)
 
-    assertThat(cut.load(), equalTo(listOf("a")))
-  }
+    cut.save(representation, text)
+    cut.save(representation, text)
 
-  @Test
-  fun `should retain insertion order`() {
-    cut.save("z")
-    cut.save("y")
-    cut.save("x")
-    cut.save("a")
-    cut.save("b")
-    cut.save("c")
-    cut.save("x")
-    cut.save("a")
-
-    assertThat(cut.load(), equalTo(listOf("z", "y", "x", "a", "b", "c")))
+    assertThat(cut.findAnagrams(representation), equalTo(listOf("a")))
   }
 
 }
